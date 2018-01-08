@@ -33,6 +33,15 @@ module.exports = {
     ],
   },
 
+  externals: [
+    (context, request, callback) => {
+      if (!context.replace(/\\/g, '/').includes('wue/node_modules')) {
+        return callback(null)
+      }
+      callback(null, `commonjs2 ${path.join(context, request)}`)
+    },
+  ],
+
   resolve: {
     modules: [
       'node_modules',
